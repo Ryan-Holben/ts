@@ -1,6 +1,6 @@
 # ts
 
-`ts` is a simple CLI for tracking how long you spend on tasks-- its name stands for "timesheet".  Name those tasks with consistent tags, such as `coding` or `cleaning`, and you'll be able to track them over time.  You can answer questions like:
+`ts` is a simple CLI for tracking how long you spend on tasks-- its name stands for "timesheet".  Name tasks with consistent tags, such as `coding` or `cleaning`, and you'll be able to track them over time.  You can answer questions like:
 
 * Where does my time go on an average day?
 * Did I study Japanese each day last week?

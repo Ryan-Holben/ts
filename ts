@@ -14,6 +14,7 @@ Usage:
   timesheet status
   timesheet tags
   timesheet history [tag]
+  timesheet summary
 
 Options:
   -h --help         Show this screen
@@ -30,7 +31,7 @@ def do_categories():
 	pass
 
 def main():
-	args = docopt(__doc__, options_first=True, version="\x1b[1;31monx\x1b[0m.alpha.2020.05.09.0")
+	args = docopt(__doc__, options_first=True, version="\x1b[1;31mts\x1b[0m v\\2020.05.17.0")
 	
 	# pprint(args)
 	db = lib.open_db(filename)
@@ -48,6 +49,8 @@ def main():
 		lib.get_tags(db)
 	elif args['history']:
 		lib.history(db)
+	elif args['summary']:
+		lib.summary(db)
 	else:
 		print("__doc__")
     

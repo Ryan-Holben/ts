@@ -21,9 +21,10 @@ def get_tags(db):
     tags = set()
     for r in active.distinct('tag'):
         tags.add(r['tag'])
-    
     for r in history.distinct('tag'):
         tags.add(r['tag'])
+
+    print("Timesheet has tracked " + red(str(len(tags))) + " tags:")
     for t in tags:
         print("\t" + red(t))
 
@@ -74,7 +75,7 @@ def status(db):
         exit()
     print("Currently tracking " + red(str(n)) + " tasks:")
     for r in table:
-        print("\t" + red(r['tag']) + " - " + strftime("%H:%M:%S", gmtime(now - r['start'])))
+        print("\tYou have been " + red(r['tag']) + " for " + strftime("%H:%M:%S", gmtime(now - r['start'])) + ".")
 
 def sec_to_hms(sec):
     h = int(sec / 3600)
@@ -87,3 +88,15 @@ def history(db):
     table = db['history']
     for r in table:
         print("\tOn " + strftime("%d/%m/%Y %H:%M:%S", gmtime(r['start'])) + ": " + red(r['tag']) + " lasted " + sec_to_hms(r['end'] - r['start']) + ".")
+
+def summary(db):
+    table = db['history']
+    totals = {}
+    for r in table:
+        dt = r['end'] - r['start']
+        totals[r['tag']] = totals[r['tag']] + dt if r['tag'] in totals else dt
+    totals = {k: v for k, v in sorted(totals.items(), key=lambda item: item[1], reverse=True)}
+    print("Your total times are:")
+    for k in totals:
+        print("\t" + red(k) + ": " + str(sec_to_hms(totals[k])))
+
